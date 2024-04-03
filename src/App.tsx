@@ -4,12 +4,42 @@ import { Products, Product } from './components/Products/Products';
 import { Cart } from './components/Cart/Cart';
 import { Wrapper } from './App.style';
 import { BasicModal } from './components/Modal';
+import { SearchBar } from './components/SearchBar/SearchBar'
+
+const API_URL = "https://dummyjson.com/products";
 
 function App() {
   const [cart, setCart] = useState<{ [key: number]: Product }>({});
   const [products, setProducts] = useState<Product[]>([]); 
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
   //const [favorites, setFavorites] = useState<Record<number, boolean>>({});
 
+  useEffect(() => {
+    fetchData(API_URL);
+  }, []);
+
+  async function fetchData(url: string) {
+    try {
+      const response = await fetch(url);
+      if (response.ok) {
+        const data = await response.json();
+        const productsWithFavorites = data.products.map((product: any) => ({
+          ...product,
+          favorite: false
+        }));
+        setProducts(productsWithFavorites);
+        setIsLoading(false);
+      } else {
+        setError(true);
+        setIsLoading(false);
+      }
+    } catch (error) {
+      setError(true);
+      setIsLoading(false);
+    }
+  }
 
   const addToCart = (product: Product) => {
     const newCart = { ...cart };
@@ -30,6 +60,13 @@ function App() {
       console.log(updatedProducts);
       return updatedProducts;
     });
+    setCart(prevCart => {
+    const updatedCart = { ...prevCart };
+    if (updatedCart[productId]) {
+      updatedCart[productId] = { ...updatedCart[productId], favorite: !updatedCart[productId].favorite };
+    }
+    return updatedCart;
+  });
   };
 
   const handleUpdateQuantity = (productId: number, operation: string) => {
@@ -71,8 +108,10 @@ function App() {
       <div>
       </div>
       <h1>My Shopping List</h1>
+      <BasicModal />
+      <SearchBar products={products} toggleFavorite={toggleFavorite}/>
       <Wrapper>
-        <BasicModal />
+        
         
       <Products products={products} addToCart={addToCart} isInCart={isInCart} toggleFavorite={toggleFavorite} cart={cart} />
         <Cart cart={cart} handleUpdateQuantity={handleUpdateQuantity} removeProduct={removeProduct} toggleFavorite={toggleFavorite} products={products}/>

@@ -4,7 +4,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { FavoriteButton } from "../Cart/FavoriteButton";
 
-const API_URL = "https://dummyjson.com/products";
 
 export type Product = {
   id: number;
@@ -27,37 +26,7 @@ interface ProductsProps {
 
 
 
-export const Products: FunctionComponent<ProductsProps> = ({ addToCart, toggleFavorite}) => {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(false);
-
-  
-
-  useEffect(() => {
-    fetchData(API_URL);
-  }, []);
-
-  async function fetchData(url: string) {
-    try {
-      const response = await fetch(url);
-      if (response.ok) {
-        const data = await response.json();
-        const productsWithFavorites = data.products.map((product: any) => ({
-          ...product,
-          favorite: false
-        }));
-        setProducts(productsWithFavorites);
-        setIsLoading(false);
-      } else {
-        setError(true);
-        setIsLoading(false);
-      }
-    } catch (error) {
-      setError(true);
-      setIsLoading(false);
-    }
-  }
+export const Products: FunctionComponent<ProductsProps> = ({ products, addToCart, toggleFavorite}) => {
 
   
 
@@ -75,14 +44,12 @@ export const Products: FunctionComponent<ProductsProps> = ({ addToCart, toggleFa
               <ImageContainer><img src={product.thumbnail} alt={product.title} /></ImageContainer>
               <h3>{product.price}€</h3>
               <p>{product.quantity}</p>
-              <button onClick={() => toggleFavorite(product.id)}>
-        {product.favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-      </button>
+              <FavoriteButton product={product} toggleFavorite={toggleFavorite} />
               <button
                 disabled={product.selected}
                 onClick={() => addToCart(product)}
               >
-                {product.selected ? "In Cart" : "Add to Cart"}
+                {product.selected ? "Added" : "Add to list"}
               </button>
             </div>
             </ProductCard>

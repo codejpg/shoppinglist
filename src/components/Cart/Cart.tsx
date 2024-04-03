@@ -4,6 +4,7 @@ import { Quantifier } from '../Quantifier/Quantifier';
 import { FavoriteButton } from './FavoriteButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 interface CartProps {
@@ -20,15 +21,14 @@ export const Cart: FunctionComponent<CartProps> = ({ cart, handleUpdateQuantity,
   return (
     <div>
       <h1>Cart</h1>
-      {cartItems.map(product => (
+      {cartItems.map((product: Product) => (
         <div key={product.id}>
           <h3>{product.title}</h3>
           <img src={product.thumbnail} alt={product.title} />
           <p>Quantity: {product.quantity}</p>
-          <button onClick={() => toggleFavorite(product.id)}>
-        {product.favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-      </button>
+          <FavoriteButton product={product} toggleFavorite={toggleFavorite} />
           <Quantifier handleUpdateQuantity={handleUpdateQuantity} productId={product.id} removeProduct={removeProduct}/>
+          <DeleteIcon onClick={() => removeProduct(product.id)} />
         </div>
       ))}
     </div>

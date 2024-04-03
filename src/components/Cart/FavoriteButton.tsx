@@ -5,13 +5,23 @@ import { Product } from '../Products/Products';
 
 interface FavoriteButtonProps {
     product: Product;
-    toggleFavorite: (product: Product) => void;
+    toggleFavorite: (productId: number) => void;
   }
 
 export const FavoriteButton: FunctionComponent<FavoriteButtonProps> = ({ product, toggleFavorite }) => {
     return (
-      <button onClick={() => toggleFavorite(product)}>
-        {product.favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+      
+      <button onClick={() => toggleFavorite(product.id)}>
+        {product.favorite ?  <FavoriteIcon /> : <FavoriteBorderIcon />}
       </button>
+    );
+  };
+
+  export const Favorite: FunctionComponent<FavoriteButtonProps> = ({ product}) => {
+    return (
+      
+      <div>
+        {product.favorite ?  <FavoriteIcon /> : <FavoriteBorderIcon />}
+      </div>
     );
   };

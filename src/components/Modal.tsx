@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -23,7 +24,7 @@ export function BasicModal() {
   
     return (
       <div>
-        <Button onClick={handleOpen}>Open modal</Button>
+        <Button onClick={handleOpen}>Add new product</Button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -43,7 +44,12 @@ export function BasicModal() {
           autoComplete="off"
         >
           <TextField id="outlined-basic" label="Title" variant="outlined" />
-          <TextField id="outlined-basic" label="Description" variant="outlined" />
+          <FormControl fullWidth sx={{ m: 1 }}>
+          <TextField  id="outlined-multiline-static"
+          multiline
+          rows={5}
+          label="Description" variant="outlined" />
+          </FormControl>
           <TextField id="outlined-number" label="Price" variant="outlined" type="number" />
           <Button variant="contained">Create</Button>
         </Box>
