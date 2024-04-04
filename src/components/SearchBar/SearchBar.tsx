@@ -1,12 +1,11 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
+import Autocomplete, { AutocompleteRenderOptionState } from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Product } from '../Products/Products';
 import { SearchOptions } from './SearchOptions';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
 import { ProductImage } from '../Products/ProductImage';
 
@@ -33,8 +32,6 @@ export const SearchBar: FunctionComponent<SearchProps> = ({products,toggleFavori
     }
 
     (async () => {
-      //await sleep(1e3); // For demo purposes.
-
       if (active) {
         setOptions([...products]);
       }
@@ -54,7 +51,7 @@ export const SearchBar: FunctionComponent<SearchProps> = ({products,toggleFavori
   return (
     <Autocomplete
       id="search-bar"
-      sx={{ width: '60vw', height: '10vh'}}
+      sx={{ minWidth: '30vw', height: '50px'}}
       open={open}
       onOpen={() => {
         setOpen(true);
@@ -83,21 +80,21 @@ export const SearchBar: FunctionComponent<SearchProps> = ({products,toggleFavori
           }}
         />
       )}
-      renderOption={(props, option) => (
-         <Paper
-         sx={{
-           p: 2,
-           margin: 'auto',
-           flexGrow: 1,
-         }}
-       >
+    renderOption={(props, option, state) => (
+             <Paper
+             sx={{
+                 p: 3,
+                 margin: 'auto',
+                 flexGrow: 1,
+             }}
+         >
          <Grid container spacing={2} component="li" {...props}>
            <Grid item>
-             <ButtonBase sx={{ width: 128, height: 128 }}>
+         
        
                 <ProductImage product={option} />
                
-             </ButtonBase>
+        
            </Grid>
            <Grid item xs={12} sm container>
              <Grid item xs container direction="column" spacing={2}>
@@ -117,7 +114,7 @@ export const SearchBar: FunctionComponent<SearchProps> = ({products,toggleFavori
              </Grid>
              <Grid item>
                <Typography variant="subtitle1" component="div">
-               <SearchOptions productsId={option.id} toggleFavorite={toggleFavorite} product={option} addToCart={addToCart}/>
+               { <SearchOptions productsId={option.id} toggleFavorite={toggleFavorite} product={option} addToCart={addToCart}/>}
         
                </Typography>
              </Grid>

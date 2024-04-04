@@ -1,11 +1,5 @@
 import { FunctionComponent, useState, useEffect } from "react";
-import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
-import RemoveCircleOutlineRoundedIcon from "@mui/icons-material/RemoveCircleOutlineRounded";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import FormControl from "@mui/material/FormControl";
 import ToggleButton from '@mui/material/ToggleButton';
 
 export type Operation = "decrease" | "increase";

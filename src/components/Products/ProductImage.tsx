@@ -1,4 +1,4 @@
-import { ImageContainer, ProductCard, ProductTitle, ProductsContainer } from "./Products.style";
+import { ImageContainer} from "./Products.style";
 import { Product } from "./Products";
 import { FunctionComponent } from 'react';
 

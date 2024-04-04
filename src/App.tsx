@@ -1,10 +1,15 @@
-import React, { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import "./App.css";
 import { Products, Product } from "./components/Products/Products";
 import { Cart } from "./components/Cart/Cart";
-import { Wrapper } from "./App.style";
-import { BasicModal } from "./components/Modal";
+import { ProductsContainer, PageWrapper, Wrapper } from "./App.style";
 import { SearchBar } from "./components/SearchBar/SearchBar";
+import { Header } from "./components/Header/Header";
+import { Typography } from "@mui/material";
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 const API_URL = "https://dummyjson.com/products";
 
@@ -139,32 +144,37 @@ function App() {
   );
   return (
     <>
-      <div></div>
-      <h1>My Shopping List</h1>
-      <BasicModal onAddProduct={addProduct} />
-      <SearchBar
+      <PageWrapper>
+        <Typography variant="h2" >My Shopping List</Typography>
+  
+      <Wrapper>
+        <ProductsContainer>
+        <Header
+        addProduct={addProduct}
         products={products}
         toggleFavorite={toggleFavorite}
         addToCart={addToCart}
       />
-      <Wrapper>
         <Products
-          products={products}
-          addToCart={addToCart}
-          isInCart={isInCart}
-          toggleFavorite={toggleFavorite}
-          cart={cart}
-        />
+              products={products}
+              addToCart={addToCart}
+              isInCart={isInCart}
+              toggleFavorite={toggleFavorite}
+              cart={cart} handleUpdateQuantity={handleUpdateQuantity}
+              removeProduct={removeProduct}  />
+        </ProductsContainer>
+        <ProductsContainer>
         <Cart
-          totalPrice={totalPrice}
-          cart={cart}
-          handleUpdateQuantity={handleUpdateQuantity}
-          removeProduct={removeProduct}
-          toggleFavorite={toggleFavorite}
-          products={products}
-          handleDelete={handleDelete}
-        />
+              totalPrice={totalPrice}
+              cart={cart}
+              handleUpdateQuantity={handleUpdateQuantity}
+              removeProduct={removeProduct}
+              toggleFavorite={toggleFavorite}
+              products={products}
+              handleDelete={handleDelete} addToCart={addToCart}/>
+        </ProductsContainer>
       </Wrapper>
+      </PageWrapper>
     </>
   );
 }

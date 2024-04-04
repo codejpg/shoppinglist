@@ -1,10 +1,9 @@
-import { FunctionComponent, useEffect, useState } from "react";
-import { ImageContainer, ProductCard, ProductTitle, ProductsContainer } from "./Products.style";
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { FunctionComponent } from "react";
+import { ProductTitle, ProductsContainer } from "./Products.style";
 import { FavoriteButton } from "../Cart/FavoriteButton";
 import { AddButton } from "../Cart/AddButton";
 import { ProductImage } from "./ProductImage";
+import { ProductCard } from "./ProductCard";
 
 
 export type Product = {
@@ -25,33 +24,27 @@ interface ProductsProps {
   toggleFavorite: (productId: number) => void;
   cart: { [key: number]: Product };
   products: Product[];
+  handleUpdateQuantity: (productId: number, operation: string) => void;
+  removeProduct: (productId: number) => void;
 }
 
 
 
-export const Products: FunctionComponent<ProductsProps> = ({ products, addToCart, toggleFavorite}) => {
+export const Products: FunctionComponent<ProductsProps> = ({ products, addToCart, toggleFavorite, handleUpdateQuantity, removeProduct }) => {
 
   
 
   return (
     <div>
       <section>
-        <h1>Products</h1>
+        <p>new products</p>
 
         <div>
           <ProductsContainer>
           {products.map((product: Product) => (
-            <ProductCard>
-            <div key={product.id}>
-              <ProductTitle><h2>{product.title}</h2></ProductTitle>
-              <ProductImage product={product} />
-              <h3>{product.price}€</h3>
-              <p>{product.quantity}</p>
-              <p>{product.description}</p>
-              <FavoriteButton product={product} toggleFavorite={toggleFavorite} />
-              <AddButton addToCart={addToCart} product={product} />
-            </div>
-            </ProductCard>
+            <ProductCard product={product} toggleFavorite={toggleFavorite} addToCart={addToCart} cart={false} handleUpdateQuantity={handleUpdateQuantity}
+             removeProduct={removeProduct}  />
+       
           ))}
           </ProductsContainer>
         </div>

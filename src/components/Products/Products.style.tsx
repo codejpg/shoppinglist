@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 export const ProductsContainer = styled.div`
-  text-align: center;
-  padding: 50px;
+  text-align: left;
+  padding: 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  width: 55vw;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
   grid-gap: 20px;
+  min-width: 30vw;
 `;
 
 export const ImageContainer = styled.div`
@@ -14,12 +14,13 @@ export const ImageContainer = styled.div`
     border-radius: 10px;
     justify-content: center;
     overflow: hidden;
-    width: 300px;
-    height: 300px;
+    object-fit: contain;
+    width: 150px;
+    height: 150px;
 
     `;
 
-export const ProductCard = styled.div`
+export const ProductCard2 = styled.div`
   display: grid;
   align-items: center;
   border: 1px solid #ccc;
