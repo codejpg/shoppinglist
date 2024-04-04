@@ -9,6 +9,8 @@ import { ProductTitle } from "./Products.style";
 import { Quantifier } from "../Quantifier/Quantifier";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+//  Sources of Snippets: 
+//          Grid: https://mui.com/material-ui/react-grid/
 
 interface ProductCardProps {
   product: Product;

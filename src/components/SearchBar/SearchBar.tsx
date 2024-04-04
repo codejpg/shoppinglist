@@ -112,7 +112,7 @@ export const SearchBar: FunctionComponent<SearchProps> = ({products,toggleFavori
              </Grid>
              <Grid item>
                <Typography variant="subtitle1" component="div">
-               { <SearchOptions productsId={option.id} toggleFavorite={toggleFavorite} product={option} addToCart={addToCart}/>}
+               { <SearchOptions toggleFavorite={toggleFavorite} product={option} addToCart={addToCart}/>}
         
                </Typography>
              </Grid>

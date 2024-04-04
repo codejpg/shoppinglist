@@ -4,7 +4,6 @@ import { Products, Product } from "./components/Products/Products";
 import { Cart } from "./components/Cart/Cart";
 import { ProductsContainer, PageWrapper, Wrapper } from "./App.style";
 import { Header } from "./components/Header/Header";
-import { Typography } from "@mui/material";
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -136,7 +135,7 @@ function App() {
   return (
     <>
       <PageWrapper>
-        <Typography variant="h2" >My Shopping List</Typography>
+        <h1>My Shopping List</h1>
   
       <Wrapper>
         <ProductsContainer>

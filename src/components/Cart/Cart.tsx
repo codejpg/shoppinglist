@@ -29,21 +29,29 @@ export const Cart: FunctionComponent<CartProps> = ({
   return (
     <div>
       <CartContainer>
-        <p>My Products</p> <Button onClick={handleDelete}>delete all</Button>
-
-        {cartItems.map((product: Product) => (
-          <div key={product.id}>
-            <ProductCard
-              product={product}
-              handleUpdateQuantity={handleUpdateQuantity}
-              removeProduct={removeProduct}
-              toggleFavorite={toggleFavorite}
-              cart={true} addToCart={addToCart}/>
-          </div>
-        ))}
-
-        <p>Total Price: ${totalPrice}</p>
-        
+      <p>My Products</p>
+        {cartItems.length === 0 ? (
+          <p>Shopping list is empty</p>
+        ) : (
+          <>
+            
+            <Button onClick={handleDelete}>delete all</Button>
+            {cartItems.map((product: Product) => (
+              <div key={product.id}>
+                <ProductCard
+                  product={product}
+                  handleUpdateQuantity={handleUpdateQuantity}
+                  removeProduct={removeProduct}
+                  toggleFavorite={toggleFavorite}
+                  cart={true}
+                  addToCart={addToCart}
+                />
+              </div>
+            ))}
+            <p>Total(EUR): ${totalPrice}</p>
+            <Button>Confirm order</Button>
+          </>
+        )}
       </CartContainer>
     </div>
   );
