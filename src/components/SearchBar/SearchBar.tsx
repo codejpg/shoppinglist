@@ -3,7 +3,6 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Product } from '../Products/Products';
-import Box from '@mui/material/Box';
 import { SearchOptions } from './SearchOptions';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -20,14 +19,6 @@ interface SearchProps {
     toggleFavorite: (productId: number) => void;
     addToCart: (product: Product) => void;
   }
-
-function sleep(duration: number): Promise<void> {
-  return new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, duration);
-  });
-}
 
 export const SearchBar: FunctionComponent<SearchProps> = ({products,toggleFavorite, addToCart}) =>{
   const [open, setOpen] = useState(false);
@@ -63,7 +54,7 @@ export const SearchBar: FunctionComponent<SearchProps> = ({products,toggleFavori
   return (
     <Autocomplete
       id="search-bar"
-      sx={{ width: '80vw', height: '10vh'}}
+      sx={{ width: '60vw', height: '10vh'}}
       open={open}
       onOpen={() => {
         setOpen(true);

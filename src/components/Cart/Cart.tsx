@@ -6,6 +6,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ProductImage } from '../Products/ProductImage';
+import { Button } from '@mui/material';
 
 
 interface CartProps {
@@ -15,9 +16,10 @@ interface CartProps {
     products: Product[];
     toggleFavorite: (productId: number) => void;
     totalPrice: number;
+    handleDelete: () => void;
 }
 
-export const Cart: FunctionComponent<CartProps> = ({ totalPrice, cart, handleUpdateQuantity, removeProduct, toggleFavorite}) => {
+export const Cart: FunctionComponent<CartProps> = ({ totalPrice, cart, handleUpdateQuantity, removeProduct, toggleFavorite, handleDelete}) => {
   const cartItems = Object.values(cart);
 
   return (
@@ -34,6 +36,7 @@ export const Cart: FunctionComponent<CartProps> = ({ totalPrice, cart, handleUpd
         </div>
       ))}
       <p>Total Price: ${totalPrice}</p>
+      <Button onClick={handleDelete}>clear cart</Button>
     </div>
   );
 };

@@ -124,6 +124,14 @@ function App() {
     setProducts((prevProducts) => [...prevProducts, product]);
   };
 
+  const handleDelete = () => {
+    setCart({});
+    setTotalPrice(0);
+    setProducts((prevProducts) =>
+      prevProducts.map((product) => ({ ...product, selected: false }))
+    );
+  };
+
   const isInCart = useCallback(
     (product: Product): boolean =>
       Object.keys(cart || {}).includes(product.id.toString()),
@@ -154,6 +162,7 @@ function App() {
           removeProduct={removeProduct}
           toggleFavorite={toggleFavorite}
           products={products}
+          handleDelete={handleDelete}
         />
       </Wrapper>
     </>
