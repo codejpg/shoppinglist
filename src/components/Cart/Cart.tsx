@@ -1,9 +1,5 @@
 import { FunctionComponent } from "react";
 import { Product } from "../Products/Products";
-import { Quantifier } from "../Quantifier/Quantifier";
-import { FavoriteButton } from "./FavoriteButton";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { ProductImage } from "../Products/ProductImage";
 import { Button } from "@mui/material";
 import { CartContainer } from "./Cart.style";
 import { ProductCard } from "../Products/ProductCard";

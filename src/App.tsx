@@ -3,7 +3,6 @@ import "./App.css";
 import { Products, Product } from "./components/Products/Products";
 import { Cart } from "./components/Cart/Cart";
 import { ProductsContainer, PageWrapper, Wrapper } from "./App.style";
-import { SearchBar } from "./components/SearchBar/SearchBar";
 import { Header } from "./components/Header/Header";
 import { Typography } from "@mui/material";
 import '@fontsource/roboto/300.css';
@@ -45,6 +44,13 @@ function App() {
       setError(true);
       setIsLoading(false);
     }
+  }
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error occurred while fetching data.</div>;
   }
 
   const addToCart = (product: Product) => {

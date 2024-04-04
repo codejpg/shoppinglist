@@ -1,8 +1,5 @@
 import { FunctionComponent } from "react";
-import { ProductTitle, ProductsContainer } from "./Products.style";
-import { FavoriteButton } from "../Cart/FavoriteButton";
-import { AddButton } from "../Cart/AddButton";
-import { ProductImage } from "./ProductImage";
+import { ProductsContainer } from "./Products.style";
 import { ProductCard } from "./ProductCard";
 
 

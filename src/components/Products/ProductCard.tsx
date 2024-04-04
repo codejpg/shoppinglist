@@ -1,4 +1,4 @@
-import { ButtonBase, Grid, Paper, Typography } from "@mui/material";
+import { Grid, Paper, Typography } from "@mui/material";
 
 import { FunctionComponent } from "react";
 import { Product } from "./Products";

@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
-import Autocomplete, { AutocompleteRenderOptionState } from '@mui/material/Autocomplete';
+import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Product } from '../Products/Products';
 import { SearchOptions } from './SearchOptions';
@@ -80,7 +80,7 @@ export const SearchBar: FunctionComponent<SearchProps> = ({products,toggleFavori
           }}
         />
       )}
-    renderOption={(props, option, state) => (
+    renderOption={(props, option) => (
              <Paper
              sx={{
                  p: 3,
