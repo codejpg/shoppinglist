@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 export const ProductsContainer = styled.div`
   text-align: left;
-  padding: 20px;
+  padding: 10px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(400px, 2fr));
   grid-gap: 20px;
   min-width: 30vw;
 `;
@@ -15,8 +15,8 @@ export const ImageContainer = styled.div`
     justify-content: center;
     overflow: hidden;
     object-fit: contain;
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
 
     `;
 

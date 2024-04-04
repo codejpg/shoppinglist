@@ -88,7 +88,7 @@ export const SearchBar: FunctionComponent<SearchProps> = ({products,toggleFavori
                  flexGrow: 1,
              }}
          >
-         <Grid container spacing={2} component="li" {...props}>
+         <Grid container spacing={3} component="li" {...props}>
            <Grid item>
          
        
@@ -107,9 +107,7 @@ export const SearchBar: FunctionComponent<SearchProps> = ({products,toggleFavori
                  </Typography>
                </Grid>
                <Grid item>
-                 <Typography sx={{ cursor: 'pointer' }} variant="body2">
-                   Remove
-                 </Typography>
+                 
                </Grid>
              </Grid>
              <Grid item>

@@ -1,4 +1,4 @@
-import { Grid, Paper, Typography } from "@mui/material";
+import { Grid, Box, Typography } from "@mui/material";
 
 import { FunctionComponent } from "react";
 import { Product } from "./Products";
@@ -28,15 +28,15 @@ export const ProductCard: FunctionComponent<ProductCardProps> = ({
     removeProduct,
 }) => {
   return (
-    <Paper
+    <Box
       sx={{
         p: 2,
-        margin: "auto",
-        width: 500,
+        margin: "10px",
+        width: 350,
+        height: '100%',
         flexGrow: 1,
-        backgroundColor: (theme) =>
-          theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-      }}
+        backgroundColor: "none",
+    }}
     >
       <Grid container spacing={3}>
         <Grid item>
@@ -49,15 +49,15 @@ export const ProductCard: FunctionComponent<ProductCardProps> = ({
                 <ProductTitle>{product.title}</ProductTitle>
               </Typography>
               <Typography variant="body2" gutterBottom>
-                {product.description}
+              {cart ? null : product.description}
               </Typography>
               <Typography variant="body2" color="text.secondary"></Typography>
             </Grid>
             <Grid item></Grid>
           </Grid>
-          <Grid item>
+          <Grid item sx={{textAlign: "right"}}>
             <Typography variant="subtitle1" component="div">
-              <h3>{product.price}€</h3>
+              <h3 style={{marginTop: 0}}>{product.price}€</h3>
             </Typography>
             <Grid item>
               <FavoriteButton
@@ -65,16 +65,17 @@ export const ProductCard: FunctionComponent<ProductCardProps> = ({
                 toggleFavorite={toggleFavorite}
               />
             </Grid>
-            <Grid item xs={20}>
+            <Grid item xs={100}>
+                <Grid item xs={100}>
                 {cart ? <><Quantifier handleUpdateQuantity={handleUpdateQuantity}
                               productId={product.id}
                               removeProduct={removeProduct} />
-                        <DeleteIcon onClick={() => removeProduct(product.id)} /></> : <AddButton addToCart={addToCart} product={product} />}
-              
+                              <DeleteIcon onClick={() => removeProduct(product.id)} /></> : <AddButton addToCart={addToCart} product={product} />}
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-    </Paper>
+    </Box>
   );
 };

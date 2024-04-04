@@ -4,6 +4,7 @@ export const Wrapper = styled.div`
     display: grid;
     justify-content: center;
     grid-template-columns: 2fr 1fr;
+    grid-gap: 20px;
     margin: 0 auto;
     padding: 2rem;
     text-align: left;
@@ -11,13 +12,12 @@ export const Wrapper = styled.div`
 
 export const PageWrapper = styled.div`
     justify-content: center;
-    grid-template-columns: 1fr;
     margin: 0 auto;
-    padding: 5rem;
+    padding: 3rem;
 `;
 export const ProductsContainer = styled.div`
     text-align: center;
-    padding: 50px;
+    padding: 20px;
     margin: 0 auto;
     display: grid;
     grid-gap: 20px;

@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
-import { Product } from "./Products/Products";
+import { Product } from "../../Products/Products";
 import Grid from "@mui/material/Grid";
 
 const style = {
@@ -38,6 +38,7 @@ export const NewProductModal: FunctionComponent<ModalProps> = ({
     image: "",
     price: 0,
     description: "",
+    category: "",
     thumbnail:
       "https://www.kurin.com/wp-content/uploads/placeholder-square.jpg",
     quantity: 0,
@@ -58,6 +59,7 @@ export const NewProductModal: FunctionComponent<ModalProps> = ({
       image: "",
       price: 0,
       description: "",
+      category: "",
       thumbnail:
         "https://www.kurin.com/wp-content/uploads/placeholder-square.jpg",
       quantity: 0,

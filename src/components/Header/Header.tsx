@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 import { FunctionComponent } from "react";
 import { Product } from "../Products/Products";
 import { SearchBar } from "../SearchBar/SearchBar";
-import { NewProductModal } from "../NewProductModal";
+import { NewProductModal } from "../Cart/NewProductModal/NewProductModal";
 
 
 interface HeaderProps {

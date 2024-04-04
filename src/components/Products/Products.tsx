@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 import { ProductsContainer } from "./Products.style";
 import { ProductCard } from "./ProductCard";
-
+import  { Grid } from "@mui/material";
 
 export type Product = {
   id: number;
@@ -13,6 +13,7 @@ export type Product = {
   quantity: number;
   favorite: boolean;
   selected: boolean;
+  category: string;
 };
 
 interface ProductsProps {
@@ -37,13 +38,16 @@ export const Products: FunctionComponent<ProductsProps> = ({ products, addToCart
         <p>new products</p>
 
         <div>
+        <Grid container spacing={2}>
           <ProductsContainer>
           {products.map((product: Product) => (
+            <Grid item xs={12} sm={6} key={product.id}>
             <ProductCard product={product} toggleFavorite={toggleFavorite} addToCart={addToCart} cart={false} handleUpdateQuantity={handleUpdateQuantity}
              removeProduct={removeProduct}  />
-       
+       </Grid>
           ))}
           </ProductsContainer>
+          </Grid>
         </div>
       </section>
     </div>

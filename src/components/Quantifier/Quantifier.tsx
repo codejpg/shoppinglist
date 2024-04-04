@@ -1,6 +1,7 @@
 import { FunctionComponent, useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
-import ToggleButton from '@mui/material/ToggleButton';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
 export type Operation = "decrease" | "increase";
 
@@ -16,7 +17,6 @@ export const Quantifier: FunctionComponent<Props> = ({
   productId,
 }) => {
   const [value, setValue] = useState<number>(1);
-  const [selected, setSelected] = useState(false);
   useEffect(() => {
     if (value === 0) {
       removeProduct(productId);
@@ -35,27 +35,71 @@ export const Quantifier: FunctionComponent<Props> = ({
 
   return (
     <div>
-      <input type="button" value="-" onClick={reduce} />
+       <Box sx={{ display: 'flex', alignItems: 'center', border: '1px solid gray', borderRadius: '40px' }}>
+       <Button
+        value="check"
+        onClick={reduce}
+        sx={{
+          minWidth: "30px",
+          textAlign: "center",
+          border: "none",
+          backgroundColor: "none",
+          '& .MuiInputBase-input': {
+            border: 'none',
+            minWidth: "30px",
+          },
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              border: 'none', 
+              minWidth: "30px",
+            },
+          },
+        }}
+      >
+      -
+    </Button>
       <TextField
-        id="outlined-number"
+   
         type="number"
         value={value}
         onChange={(e) => setValue(parseInt(e.target.value))}
         InputLabelProps={{
           shrink: true,
         }}
+        sx={{
+          width: "50px",
+          textAlign: "right",
+          border: "none",
+          backgroundColor: "none",
+          '& .MuiInputBase-input': {
+            border: 'none',
+            '&::-webkit-inner-spin-button, &::-webkit-outer-spin-button': {
+              '-webkit-appearance': 'none',
+              margin: 0,
+            },
+            '-moz-appearance': 'textfield',
+          },
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              border: 'none', 
+            },
+          },
+        }}
       />
-    <ToggleButton
+      
+    <Button
         value="check"
-        selected={selected}
         onClick={increase}
-        onChange={() => {
-          setSelected(!selected);
+        sx={{
+          minWidth: "30px",
+          textAlign: "center",
+          border: "none",
+          backgroundColor: "none",
         }}
       >
       +
-    </ToggleButton>
-     
+    </Button>
+    </Box>
     </div>
   );
 };

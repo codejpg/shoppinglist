@@ -5,5 +5,6 @@ export const CartContainer = styled.div`
     justify-content: center;
     grid-template-columns: 1fr;
     margin: 0 auto;
-    min-width: 400px;
+    min-width: 20vw;
+    text-align: left;
 `;
