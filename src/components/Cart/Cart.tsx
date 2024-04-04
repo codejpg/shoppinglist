@@ -48,7 +48,7 @@ export const Cart: FunctionComponent<CartProps> = ({
                 />
               </div>
             ))}
-            <p>Total(EUR): ${totalPrice}</p>
+            <p>Total(EUR): {totalPrice}€</p>
             <Button>Confirm order</Button>
           </>
         )}
