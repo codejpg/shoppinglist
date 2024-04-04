@@ -17,10 +17,6 @@ function App() {
   const [products, setProducts] = useState<Product[]>([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(false);
-  //const [favorites, setFavorites] = useState<Record<number, boolean>>({});
-
   useEffect(() => {
     fetchData(API_URL);
   }, []);
@@ -35,23 +31,12 @@ function App() {
           favorite: false,
         }));
         setProducts(productsWithFavorites);
-        setIsLoading(false);
-      } else {
-        setError(true);
-        setIsLoading(false);
-      }
+      } 
     } catch (error) {
-      setError(true);
-      setIsLoading(false);
+      console.error(error);
     }
-  }
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  };
 
-  if (error) {
-    return <div>Error occurred while fetching data.</div>;
-  }
 
   const addToCart = (product: Product) => {
     const newCart = { ...cart };
