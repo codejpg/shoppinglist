@@ -5,10 +5,20 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { Product } from '../Products/Products';
 import Box from '@mui/material/Box';
 import { SearchOptions } from './SearchOptions';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import ButtonBase from '@mui/material/ButtonBase';
+import Typography from '@mui/material/Typography';
+import { ProductImage } from '../Products/ProductImage';
+
+//  Sources of Snippets: 
+//          Grid: https://mui.com/material-ui/react-grid/
+//          Search: https://mui.com/material-ui/react-autocomplete/#search-input
 
 interface SearchProps {
     products: Product[];
     toggleFavorite: (productId: number) => void;
+    addToCart: (product: Product) => void;
   }
 
 function sleep(duration: number): Promise<void> {
@@ -19,7 +29,7 @@ function sleep(duration: number): Promise<void> {
   });
 }
 
-export const SearchBar: FunctionComponent<SearchProps> = ({products,toggleFavorite}) =>{
+export const SearchBar: FunctionComponent<SearchProps> = ({products,toggleFavorite, addToCart}) =>{
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState<Product[]>([]);
   const loading = open && options.length === 0;
@@ -83,11 +93,46 @@ export const SearchBar: FunctionComponent<SearchProps> = ({products,toggleFavori
         />
       )}
       renderOption={(props, option) => (
-        <Box component="li" {...props}>
-          <img src={option.thumbnail} alt={option.title} style={{ marginRight: 8 }} />
-          {option.title}
-          <SearchOptions productsId={option.id} toggleFavorite={toggleFavorite}/>
-        </Box>
+         <Paper
+         sx={{
+           p: 2,
+           margin: 'auto',
+           flexGrow: 1,
+         }}
+       >
+         <Grid container spacing={2} component="li" {...props}>
+           <Grid item>
+             <ButtonBase sx={{ width: 128, height: 128 }}>
+       
+                <ProductImage product={option} />
+               
+             </ButtonBase>
+           </Grid>
+           <Grid item xs={12} sm container>
+             <Grid item xs container direction="column" spacing={2}>
+               <Grid item xs>
+                 <Typography gutterBottom variant="subtitle1" component="div">
+                 {option.title}
+                 </Typography>
+                 <Typography variant="body2" gutterBottom>
+                   {option.description}
+                 </Typography>
+               </Grid>
+               <Grid item>
+                 <Typography sx={{ cursor: 'pointer' }} variant="body2">
+                   Remove
+                 </Typography>
+               </Grid>
+             </Grid>
+             <Grid item>
+               <Typography variant="subtitle1" component="div">
+               <SearchOptions productsId={option.id} toggleFavorite={toggleFavorite} product={option} addToCart={addToCart}/>
+        
+               </Typography>
+             </Grid>
+           </Grid>
+         </Grid>
+       </Paper>
       )}
     />
   );

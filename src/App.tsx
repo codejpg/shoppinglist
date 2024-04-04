@@ -1,16 +1,17 @@
-import React, { useState, useCallback, useEffect} from 'react';
-import './App.css';
-import { Products, Product } from './components/Products/Products';
-import { Cart } from './components/Cart/Cart';
-import { Wrapper } from './App.style';
-import { BasicModal } from './components/Modal';
-import { SearchBar } from './components/SearchBar/SearchBar'
+import React, { useState, useCallback, useEffect } from "react";
+import "./App.css";
+import { Products, Product } from "./components/Products/Products";
+import { Cart } from "./components/Cart/Cart";
+import { Wrapper } from "./App.style";
+import { BasicModal } from "./components/Modal";
+import { SearchBar } from "./components/SearchBar/SearchBar";
 
 const API_URL = "https://dummyjson.com/products";
 
 function App() {
   const [cart, setCart] = useState<{ [key: number]: Product }>({});
-  const [products, setProducts] = useState<Product[]>([]); 
+  const [products, setProducts] = useState<Product[]>([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -27,7 +28,7 @@ function App() {
         const data = await response.json();
         const productsWithFavorites = data.products.map((product: any) => ({
           ...product,
-          favorite: false
+          favorite: false,
         }));
         setProducts(productsWithFavorites);
         setIsLoading(false);
@@ -50,74 +51,113 @@ function App() {
       newCart[product.id] = { ...product, quantity: 1 };
     }
     setCart(newCart);
+    setTotalPrice(totalPrice + product.price);
   };
 
   const toggleFavorite = (productId: number) => {
-    setProducts(prevProducts => {
-      const updatedProducts = prevProducts.map(p => 
+    setProducts((prevProducts) => {
+      const updatedProducts = prevProducts.map((p) =>
         p.id === productId ? { ...p, favorite: !p.favorite } : p
       );
       console.log(updatedProducts);
       return updatedProducts;
     });
-    setCart(prevCart => {
-    const updatedCart = { ...prevCart };
-    if (updatedCart[productId]) {
-      updatedCart[productId] = { ...updatedCart[productId], favorite: !updatedCart[productId].favorite };
-    }
-    return updatedCart;
-  });
+    setCart((prevCart) => {
+      const updatedCart = { ...prevCart };
+      if (updatedCart[productId]) {
+        updatedCart[productId] = {
+          ...updatedCart[productId],
+          favorite: !updatedCart[productId].favorite,
+        };
+      }
+      return updatedCart;
+    });
   };
 
   const handleUpdateQuantity = (productId: number, operation: string) => {
-    setCart(prevCart => {
+    setCart((prevCart) => {
       const product = prevCart[productId];
       let newQuantity = product.quantity;
 
-      if (operation === 'increase') {
+      if (operation === "increase") {
         newQuantity += 1;
-      } else if (operation === 'decrease' && newQuantity > 0) {
+        setTotalPrice(totalPrice + product.price);
+      } else if (operation === "decrease" && newQuantity > 0) {
         newQuantity -= 1;
+        setTotalPrice(totalPrice - product.price);
       }
-  
+
       return {
         ...prevCart,
-        [productId]: { ...product, quantity: newQuantity }
+        [productId]: { ...product, quantity: newQuantity },
       };
     });
   };
   const removeProduct = (productId: number) => {
-    setCart(prevCart => {
+    setCart((prevCart) => {
       const newCart = { ...prevCart };
       delete newCart[productId];
       return newCart;
     });
-    setProducts(prevProducts => 
-      prevProducts.map(product =>
+    setProducts((prevProducts) =>
+      prevProducts.map((product) =>
         product.id === productId ? { ...product, selected: false } : product
       )
     );
+    setTotalPrice(
+      totalPrice - cart[productId].price * cart[productId].quantity
+    );
+  };
+  const addProduct = (product: Product) => {
+    fetch("https://dummyjson.com/products/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: product.title,
+        description: product.description,
+        price: product.price,
+      }),
+    })
+      .then((res) => res.json())
+      .then(console.log);
+
+    setProducts((prevProducts) => [...prevProducts, product]);
   };
 
-  const isInCart = useCallback((product: Product): boolean => 
-  Object.keys(cart || {}).includes(product.id.toString()), 
-  [cart]
-);
+  const isInCart = useCallback(
+    (product: Product): boolean =>
+      Object.keys(cart || {}).includes(product.id.toString()),
+    [cart]
+  );
   return (
     <>
-      <div>
-      </div>
+      <div></div>
       <h1>My Shopping List</h1>
-      <BasicModal />
-      <SearchBar products={products} toggleFavorite={toggleFavorite}/>
+      <BasicModal onAddProduct={addProduct} />
+      <SearchBar
+        products={products}
+        toggleFavorite={toggleFavorite}
+        addToCart={addToCart}
+      />
       <Wrapper>
-        
-        
-      <Products products={products} addToCart={addToCart} isInCart={isInCart} toggleFavorite={toggleFavorite} cart={cart} />
-        <Cart cart={cart} handleUpdateQuantity={handleUpdateQuantity} removeProduct={removeProduct} toggleFavorite={toggleFavorite} products={products}/>
+        <Products
+          products={products}
+          addToCart={addToCart}
+          isInCart={isInCart}
+          toggleFavorite={toggleFavorite}
+          cart={cart}
+        />
+        <Cart
+          totalPrice={totalPrice}
+          cart={cart}
+          handleUpdateQuantity={handleUpdateQuantity}
+          removeProduct={removeProduct}
+          toggleFavorite={toggleFavorite}
+          products={products}
+        />
       </Wrapper>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

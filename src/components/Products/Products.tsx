@@ -3,12 +3,15 @@ import { ImageContainer, ProductCard, ProductTitle, ProductsContainer } from "./
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { FavoriteButton } from "../Cart/FavoriteButton";
+import { AddButton } from "../Cart/AddButton";
+import { ProductImage } from "./ProductImage";
 
 
 export type Product = {
   id: number;
   title: string;
   price: number;
+  description: string;
   thumbnail: string;
   image: string;
   quantity: number;
@@ -41,16 +44,12 @@ export const Products: FunctionComponent<ProductsProps> = ({ products, addToCart
             <ProductCard>
             <div key={product.id}>
               <ProductTitle><h2>{product.title}</h2></ProductTitle>
-              <ImageContainer><img src={product.thumbnail} alt={product.title} /></ImageContainer>
+              <ProductImage product={product} />
               <h3>{product.price}€</h3>
               <p>{product.quantity}</p>
+              <p>{product.description}</p>
               <FavoriteButton product={product} toggleFavorite={toggleFavorite} />
-              <button
-                disabled={product.selected}
-                onClick={() => addToCart(product)}
-              >
-                {product.selected ? "Added" : "Add to list"}
-              </button>
+              <AddButton addToCart={addToCart} product={product} />
             </div>
             </ProductCard>
           ))}
